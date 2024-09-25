@@ -1,0 +1,109 @@
+*{
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+  position: relative;
+  top: 10px;
+  margin: 0 auto;
+  width: 400px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+}
+
+.wrapper .title {
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+  border-radius: 15px 15px 0px 0px;
+  line-height: 100px;
+  background: linear-gradient(-135deg, rgb(251, 0, 255),purple);
+}
+
+.wrapper form {
+  padding: 10px 30px 30px 30px;
+}
+
+.wrapper form .field {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.wrapper form .field input {
+  height: 100%;
+  width: 100%;
+  padding-left: 20px;
+  border-radius: 25px;
+  border: 1px solid lightgray;
+  outline: none;
+}
+
+.wrapper form .pass-link
+{
+  color: purple;
+  margin: 8px 0px 0px 10px;
+}
+
+.wrapper form .field input[type="submit"] {
+  color: #ffffff;
+  background: linear-gradient(-135deg, rgb(251, 0, 255),purple);
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  padding-left: none;
+  cursor: pointer;
+}
+
+.wrapper form .signup-link, .wrapper form .login-link{
+  color: purple;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.wrapper form .pass-link a,
+.wrapper form .signup-link span,
+.wrapper form .login-link span {
+  color: purple;
+  text-decoration: none;
+}
+
+.wrapper form .pass-link a:hover
+,.wrapper form .signup-link span:hover,
+.wrapper form .login-link span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.wrapper form .field span img {
+  position: absolute;
+
+}
+
+.wrapper form .field .visible img {
+  width: 25px;
+  position: relative;
+  top: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#logo {
+  width: 400px;
+}
+
+.logo h1{
+  margin: 20px 0px 50px 0px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Pacifico',cursive;
+  font-size: 60px;
+  color: purple;
+  text-shadow: 2px 2px 8px rgb(251, 0, 255);
+}

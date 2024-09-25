@@ -1,0 +1,75 @@
+<div class="logo">
+  <h1>Go2Event</h1>
+</div>
+
+@if(isActive('login-form')) {
+<div class="wrapper">
+  <div class="title">Login Form</div>
+  <form (ngSubmit)="login()">
+    <div class="field">
+      <input type="text" name="existingUserEmail" placeholder="Email Address" required [(ngModel)]="existingUser.email">
+    </div>
+
+    <div class="field">
+      <input [type]="visibility ? 'text' : 'password'" name="existingUserPassword" placeholder="Password" required [(ngModel)]="existingUser.password">
+      <div class="visible">
+        @if (!visibility) {
+          <img src="/eye-password-show-svgrepo-com.png" alt="show" (click)="togglePasswordVisibility()"/>
+        } @else {
+          <img src="/eye-closed-svgrepo-com.png" alt="hide" (click)="togglePasswordVisibility()"/>
+        }
+      </div>
+    </div>
+
+    <div class="pass-link">
+      <a href="#">Forgot password?</a>
+    </div>
+    <div class="field">
+      <input type="submit" value="Login">
+    </div>
+    <div class="signup-link">
+      <span (click)="toggleForms('signup-form')">Signup</span>
+    </div>
+  </form>
+</div>
+
+} @else {
+
+<!--  Sign up form   -->
+<div class="wrapper" *ngIf="isActive('signup-form')">
+  <div class="title">Registration Form</div>
+  <form (ngSubmit)="createUser()">
+    <div class="field">
+      <input type="text" name="newUserName" placeholder="Name" required [(ngModel)]="newUser.name">
+    </div>
+
+    <div class="field">
+      <input type="text" name="newUserEmail" placeholder="Email Address" required [(ngModel)]="newUser.email">
+    </div>
+
+    <div class="field">
+      <input [type]="visibility1 ? 'text' : 'password'" name="newUserPassword" placeholder="Set Password" required [(ngModel)]="newUser.password">
+      <div class="visible">
+        <img *ngIf="!visibility1" src="/eye-password-show-svgrepo-com.png" alt="show" (click)="togglePasswordVisibility1()"/>
+        <img *ngIf="visibility1" src="/eye-closed-svgrepo-com.png" alt="hide" (click)="togglePasswordVisibility1()"/>
+      </div>
+    </div>
+
+    <div class="field">
+      <input [type]="visibility ? 'text' : 'password'" name="newUserConfirmPassword" placeholder="Confirm Password" required [(ngModel)]="confirmPassword">
+      <div class="visible">
+        <img *ngIf="!visibility" src="/eye-password-show-svgrepo-com.png" alt="show" (click)="togglePasswordVisibility()"/>
+        <img *ngIf="visibility" src="/eye-closed-svgrepo-com.png" alt="hide" (click)="togglePasswordVisibility()"/>
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="submit" value="Register">
+    </div>
+
+    <div class="login-link">
+      <span (click)="toggleForms('login-form')">Login</span>
+    </div>
+  </form>
+</div>
+}
