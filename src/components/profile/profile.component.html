@@ -1,0 +1,20 @@
+@if(profileToggle) {
+<div class="profileOptions">
+  <ul>
+    <li>
+      <img src="/account_settings.png" alt="accountSettings"/>
+      <p (click)="updateUser()">Update User</p>
+    </li>
+    <hr>
+    <li>
+      <img src="/booked_events.png" alt="bookedEvents"/>
+      <p>Events</p>
+    </li>
+    <hr>
+    <li>
+      <img src="/logout.png" alt="logout"/>
+      <p (click)="logout()">Logout</p>
+    </li>
+  </ul>
+</div>
+}

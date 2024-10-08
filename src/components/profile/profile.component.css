@@ -1,0 +1,47 @@
+.profileOptions ul li {
+  cursor: pointer;
+  list-style-type:none;
+  font-weight: 500;
+  padding: 5px;
+  transition:background-color 0.3s;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+}
+
+.profileOptions ul li:hover {
+  background-color:rgb(223, 223, 223);
+}
+
+.profileOptions {
+  position: absolute;
+  z-index: 2;
+  box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3);
+  top: 90px;
+  right: 10px;
+  width: 200px;
+  transition: height 0.3s;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.profileOptions ul {
+  padding: 0;
+  margin:10px;
+}
+
+.profileOptions ul li p {
+  margin: 0;
+  font-size:18px;
+  margin-left: 10px;
+}
+
+.profileOptions ul li img {
+  width: 30px;
+}
+
+hr {
+  margin:5px;
+}

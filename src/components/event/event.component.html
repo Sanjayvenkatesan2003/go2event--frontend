@@ -1,0 +1,50 @@
+
+<!-- <p>Name: {{event.name}}</p>
+<p>Date: {{event.date | date}}</p>
+<p>Time: {{event.date | date:'shortTime'}}</p>
+<p>Duration: {{event.duration | date:'H'}} hours {{event.duration | date:'m'}} minutes</p> -->
+
+<div class="top">
+  <div class="dateTime">
+    <div class="date">{{event.date | date:'EEE, MMM d, y'}}</div>
+    <div class="time">{{event.date | date:'h:mm a'}}</div>
+  </div>
+  <div class="name">
+    <h1>{{event.name}}</h1>
+    <h3>{{event.type}}</h3>
+    <p>{{event.description}}</p>
+  </div>
+  <div class="location">
+    <img src="/location_icon.png" alt="location_icon">
+    <p>{{event.venue}}</p>
+  </div>
+  <div class="duration">
+      <img src="/duration_icon.png" alt="duration_icon">
+      <p>
+        @if(event.duration.getHours() > 1) {
+          {{event.duration | date:'H'}} hours 
+        } @else if(event.duration.getHours() == 1) {
+          {{event.duration | date:'H'}} hour
+        }
+    
+        @if(event.duration.getMinutes() > 0 ) {
+          {{event.duration | date:'m'}} minutes
+        }
+      </p>
+  </div>
+  <div class="seats">
+    <div class="totalSeats">
+      Total seats: {{event.totalSeats}}
+    </div>
+    <div class="availableSeats">
+      Available seats: {{event.availableSeats}}
+    </div>
+  </div>
+</div>
+<div class="book">
+  @if(isBooked()){
+    <button (click)="cancel()">{{buttonText}}</button>
+  } @else {
+    <button (click)="book()">{{buttonText}}</button>
+  }
+</div>

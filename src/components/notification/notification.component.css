@@ -1,0 +1,32 @@
+img {
+  position: absolute;
+  width:20px;
+  top: 5px;
+  right: 5px;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+.container {
+  position: absolute;
+  min-height: 50px;
+  width: 400px;
+  top: 30px;
+  right: 30px;
+  background-color: white;
+  padding: 0;
+  transition: transform 0.5s;
+}
+
+.container p {
+  margin: 10px 10px;
+  width: 350px;
+  overflow-wrap: break-word;
+}
+
+.type {
+  height: 10px;
+  background-color:black;
+}

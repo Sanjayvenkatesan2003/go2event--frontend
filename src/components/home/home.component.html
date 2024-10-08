@@ -1,1 +1,13 @@
-<app-header></app-header>
+<app-header (newItemEvent)="getSearchString($event)"/>
+@if(events.length == 0) {
+  <div class="no-event">
+    <h2>Unfortunately there are no events available.</h2>
+    <img src="/no_events.png" alt="No events available"/>
+  </div>
+} @else {
+<div class="events-display">
+    @for (event of events; track event.id) {
+      <app-event [event]="event"/>
+    } 
+</div>
+}

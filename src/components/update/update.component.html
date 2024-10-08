@@ -1,0 +1,60 @@
+
+@if(updateMode) {
+<div class="general-form">
+  <div class="title">User Update Form</div>
+  <form (ngSubmit)="updateUser()">
+    <div class="note">
+      <p>Please fill in the fields you would like to update.</p>
+    </div>
+    
+    <div class="field">
+      <input type="text" name="newUserName" placeholder="New Name" required [(ngModel)]="newUser.name">
+    </div>
+
+    <div class="field">
+      <input type="text" name="newUserEmail" placeholder="New Email" required [(ngModel)]="newUser.email">
+    </div>
+
+    <div class="field">
+      <input [type]="visibility ? 'text' : 'password'" name="newUserPassword" placeholder="New Password" required [(ngModel)]="newUser.password">
+      <div class="visible">
+        @if(!visibility) {
+          <img  src="/eye-password-show-svgrepo-com.png" alt="show" (click)="togglePasswordVisibility()"/>
+        } @else {
+          <img  src="/eye-closed-svgrepo-com.png" alt="hide" (click)="togglePasswordVisibility()"/>
+        }
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="submit" value="Update">
+    </div>
+
+    <div class="login-link">
+      <span (click)="backToHome()">Back to Home</span>
+    </div>
+  </form>
+</div>
+} @else {
+  <div class="general-form">
+    <div class="title">Enter the password</div>
+    <form (ngSubmit)="checkPassword()">
+      <div class="field">
+        <input [type]="visibility1 ? 'text' : 'password'" name="currentPassword" [(ngModel)]="oldPassword">
+        <div class="visible">
+          @if(!visibility1) {
+            <img  src="/eye-password-show-svgrepo-com.png" alt="show" (click)="togglePasswordVisibility1()"/>
+          } @else {
+            <img  src="/eye-closed-svgrepo-com.png" alt="hide" (click)="togglePasswordVisibility1()"/>
+          }
+        </div>
+      </div>
+      <div class="field">
+        <input type="submit" value="Verify">
+      </div>
+      <div class="login-link">
+        <span (click)="backToHome()">Back to Home</span>
+      </div>
+    </form>
+  </div>
+}

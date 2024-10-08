@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { NotificationService } from '../notification/notification.service';
 
 @Component({
   selector: 'app-user',
@@ -14,53 +15,56 @@ import { Router } from '@angular/router';
 })
 export class UserComponent {
 
-  constructor(private userService: UserService,private router:Router) {}
+  constructor(private userService: UserService,private router:Router,private notificationService:NotificationService) {}
 
   currentForm: string = "login-form";
   visibility: boolean = false;
   visibility1: boolean = false;
-  newUser:User = {name:"", email:"", password:""};
+  newUser:User = {name:"", email:"", password:"",events:[]};
   confirmPassword: string = "";
 
   createUser():void {
     this.userService.getUserByEmail(this.newUser).subscribe((receivedUser) => {
       if(receivedUser) {
-        alert('User already exists');
+        this.notificationService.launchNotification('warning','User already exists');
       } else if(this.newUser.password === this.confirmPassword) {
         this.userService.createUser(this.newUser).subscribe((createdUser) => {
           this.userService.storeUserInSession(createdUser);
-          this.newUser = {name:"", email:"", password:""};
+          this.newUser = {name:"", email:"", password:"",events:[]};
           this.confirmPassword = "";
           this.router.navigate(['/home/'+createdUser.id]);
         });
       } else {
-        console.log(receivedUser);
-        alert('Passwords must be equal in both feilds');
+        this.notificationService.launchNotification('error','Passwords must be matched at both feilds');
       }
     });
   }
 
-  existingUser: User = {name:"", email:"", password:""};
+  existingUser: User = {name:"", email:"", password:"",events:[]};
   
   login():void {
     this.userService.getUserByEmail(this.existingUser).subscribe((receivedUser) => {
       if(!receivedUser) {
-        alert('User does not exists Please sign up');
+        this.notificationService.launchNotification('error','User not found!!');
       } else if(receivedUser.password === this.existingUser.password) {
         this.userService.storeUserInSession(receivedUser);
-        this.router.navigate(['/home/'+receivedUser.id]);
+        this.router.navigate(['/home']);
       } else {
-        alert('Please enter the valid password');
+        this.notificationService.launchNotification('warning','Please enter the valid password');
       }
     });
   }
 
+  logout():void {
+    this.userService.logout();
+  }
+  
   toggleForms(otherForm: string) {
     if(this.currentForm === 'signup') {
-      this.newUser = {name:"", email:"", password:""};
+      this.newUser = {name:"", email:"", password:"",events:[]};
       this.confirmPassword = "";
     } else {
-      this.existingUser = {name:"", email:"", password:""};
+      this.existingUser = {name:"", email:"", password:"",events:[]};
     }
     this.currentForm = otherForm;
   }

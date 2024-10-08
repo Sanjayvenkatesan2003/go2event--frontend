@@ -1,0 +1,76 @@
+.location,.duration {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.location img {
+  width: 22px;
+}
+
+.location p {
+  margin: 0px 0px 0px 5px;
+  font-size: 18px;
+}
+
+
+.name h1 {
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+.name h3 {
+  font-size: 20px;
+}
+
+.name p {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.duration img {
+  width: 21px;
+  margin:0px 2px;
+}
+
+.duration p {
+  margin: 0px 0px 0px 5px;
+  font-size: 17px;
+}
+.seats {
+  margin: 10px 0px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+}
+
+.book {
+  flex:auto;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.book button {
+  border: none;
+  padding: 5px;
+  height: 35px;
+  width: 90%;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  margin: 10px 0px 0px 0px;
+}
+
+img {
+  opacity: 0.8;
+}
+
+.top {
+  display: 1;
+}
+
+.dateTime {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
