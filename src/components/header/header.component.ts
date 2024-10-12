@@ -1,6 +1,7 @@
 import { Component,Output,EventEmitter, HostListener, ElementRef } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { ProfileComponent } from '../profile/profile.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ import { ProfileComponent } from '../profile/profile.component';
 })
 export class HeaderComponent {
 
-  constructor(private userService: UserService,private elementRef: ElementRef) {
+  constructor(private router: Router,private userService: UserService,private elementRef: ElementRef) {
 
   }
 
@@ -26,5 +27,9 @@ export class HeaderComponent {
 
   displayProfile() {
     this.profileToggle = true;
+  }
+
+  goToHome():void {
+    this.router.navigate(['/home']);
   }
 }

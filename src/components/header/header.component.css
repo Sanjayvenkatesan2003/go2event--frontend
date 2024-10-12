@@ -19,7 +19,7 @@
 }
 
 .header h1:hover {
-  cursor:default;
+  cursor:pointer;
 }
 
 .header .profile img {
@@ -87,4 +87,3 @@
 .user-name:hover {
   cursor: default;
 }
-

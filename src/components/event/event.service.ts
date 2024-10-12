@@ -12,10 +12,7 @@ export class EventService {
 
   private apiUrl:string = 'http://localhost:8080/events';
 
-  user:User;
-  constructor(private httpClient: HttpClient,private userService: UserService) { 
-    this.user = this.userService.getUserInSession();
-  }
+  constructor(private httpClient: HttpClient,private userService: UserService) {}
 
   getAllEvents(): Observable<Event[]> {
     return this.httpClient.get<Event[]>(this.apiUrl+'/all');
@@ -26,10 +23,10 @@ export class EventService {
   }
   
   bookAnEvent(event: Event): Observable<User> {
-    return this.userService.bookAnEvent(this.user,event);
+    return this.userService.bookAnEvent(this.userService.getUserInSession(),event);
   }
 
   cancelAnEvent(event: Event): Observable<User> {
-    return this.userService.cancelAnEvent(this.user,event)
+    return this.userService.cancelAnEvent(this.userService.getUserInSession(),event)
   }
 }

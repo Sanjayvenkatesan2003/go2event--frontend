@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
-import { Router } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { EventComponent } from "../event/event.component";
 import { EventService } from '../event/event.service';
 import { Event } from '../event/event.model';
+import { LoadingComponent } from "../loading/loading.component";
+import { HomeService } from './home.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, EventComponent],
+  imports: [HeaderComponent, EventComponent, LoadingComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -23,27 +25,21 @@ export class HomeComponent {
     password: 'default password',
     events:[]
   };
-  events:Event[] = [];
   allEvents:Event[] = [];
   searchQuery:string = '';
   
-  constructor(private router:Router,private userService:UserService,private eventService:EventService) {
+  constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,private router:Router) {
     this.user = userService.getUserInSession();
 
-    if(this.user.id === -1) {
-      this.router.navigate(['/login']);
+    if(this.router.url === '/home') {
+      setTimeout(() => {
+        this.hs.getAllEvents();
+      },700);
+    } else if(this.router.url === '/home/events') {
+      setTimeout(() => {
+        this.hs.getEventsOfUser();
+      },500);
     }
-
-    this.eventService.getAllEvents().subscribe(events => {
-      events.forEach(element => {
-        let dateString:string = element.date+"T"+element.time;
-        element.date = new Date(dateString);
-        dateString = "1970-01-01T"+element.duration;
-        element.duration = new Date(dateString);
-      });
-      this.allEvents = events;
-      this.events = this.allEvents;
-    });
   }
 
   logOut() {
@@ -52,10 +48,33 @@ export class HomeComponent {
 
   getSearchString(newString: string) {
     this.searchQuery = newString;
+    this.hs.events = [{
+      name: 'Default event',
+      description: 'Default description',
+      type: 'Default type',
+      venue: 'Default venue',
+      ticketPrice:0,
+      totalSeats:0,
+      availableSeats:0,
+      date: new Date(),
+      time: new Date(),
+      duration: new Date(),
+    }];
+
     if(this.searchQuery === '') {
-      this.events = this.allEvents;
+      if(this.router.url === '/home') {
+        setTimeout(() => {
+          this.hs.getAllEvents();
+        },500);
+      } else {
+        setTimeout(() => {
+          this.hs.getEventsOfUser();
+        },500);
+      }
     } else {
-      this.events = this.allEvents.filter(event => event.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
+      setTimeout(() => {
+        this.hs.events = this.allEvents.filter(event => event.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
+      },200)
     }
   }
 }

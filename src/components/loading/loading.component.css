@@ -1,0 +1,16 @@
+.text-center {
+  position: relative;
+  top: 150px;
+}
+
+.loading-text {
+  position: absolute;
+  left: 670px;
+  top: 380px;
+}
+
+.loading-text h3 {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 35px;
+}

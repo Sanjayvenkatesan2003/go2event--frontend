@@ -15,10 +15,12 @@ export class NotificationComponent {
 
   @Input('ran') randomNumber: number = 0;
   
-  transformStyle: string = 'transform: translateY(-200%);';
+  transformStyle: string = 'transform: translateY(0%);';
   bgColor: string = 'background-color: black;';
-
+  timerId:any = 0;
+  
   ngOnChanges(changes: SimpleChanges): void {
+    clearTimeout(this.timerId);
     if(this.type === 'success') {
       this.bgColor = 'background-color: green;';
       this.transformStyle = 'transform: translateY(0%);';
@@ -29,9 +31,14 @@ export class NotificationComponent {
       this.bgColor = 'background-color: red';
       this.transformStyle = 'transform: translateY(0%);';
     }
+
+    this.timerId = setTimeout(()=>{
+      this.transformStyle = 'transform: translateY(-200%);';
+    },3000);
   }
 
-  closeNotification() {
+  closeNotification():void {
+    clearTimeout(this.timerId);
     this.transformStyle = 'transform: translateY(-200%);';
   }
 }

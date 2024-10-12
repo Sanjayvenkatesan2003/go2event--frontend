@@ -5,6 +5,7 @@ import { EventService } from './event.service';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
 import { NotificationService } from '../notification/notification.service';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-event',
@@ -15,7 +16,8 @@ import { NotificationService } from '../notification/notification.service';
 })
 export class EventComponent {
 
-  constructor(private eventService: EventService,private userService: UserService,private notificationService: NotificationService) {  
+  constructor(private eventService: EventService,private userService: UserService,
+    private notificationService: NotificationService) {  
     this.user = this.userService.getUserInSession();
   }
   user:User;
@@ -46,7 +48,7 @@ export class EventComponent {
       this.user = this.userService.getUserInSession();
       this.event.availableSeats -= 1;
       this.buttonText = 'Cancel';
-      this.notificationService.launchNotification('success','Event booked successfully');
+      this.notificationService.launchNotification('success',this.event.name+' event booked successfully');
     }); 
   }
 
@@ -64,7 +66,7 @@ export class EventComponent {
       this.user = this.userService.getUserInSession();
       this.event.availableSeats += 1;
       this.buttonText = 'Book';
-      this.notificationService.launchNotification('success','Event cancelled successfully');
+      this.notificationService.launchNotification('success',this.event.name+' event cancelled successfully');
     }); 
   }
  }
