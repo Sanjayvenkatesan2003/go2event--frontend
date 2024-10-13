@@ -1,13 +1,15 @@
 .text-center {
   position: relative;
+  width: 350px;
+  margin: 0 auto;
   top: 150px;
 }
 
-.loading-text {
+ .loading-text {
   position: absolute;
-  left: 670px;
-  top: 380px;
-}
+  left:80px;
+  top: 150px;
+} 
 
 .loading-text h3 {
   font-family: 'Courier New', Courier, monospace;
