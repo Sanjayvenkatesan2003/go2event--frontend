@@ -13,8 +13,15 @@ import { HomeService } from '../home/home.service';
 export class ProfileComponent {
 
   profileToggle = true;
+  typeOfEvents = '';
 
-  constructor(private userService: UserService,private elementRef: ElementRef,private router: Router,private homeService:HomeService) {}
+  constructor(private userService: UserService,private elementRef: ElementRef,private router: Router,private homeService:HomeService) {
+    if(this.router.url === '/home') {
+      this.typeOfEvents = 'Booked Events';
+    } else {
+      this.typeOfEvents = 'All Events';
+    }
+  }
   
   logout():void {
     this.userService.logout();
@@ -25,7 +32,13 @@ export class ProfileComponent {
   }
 
   getEvents():void {
-    this.router.navigate(['home/events']);
+    if(this.router.url === '/home') {
+      this.typeOfEvents = 'All Events';
+      this.router.navigate(['home/events']);
+    } else {
+      this.typeOfEvents = 'Booked Events';
+      this.router.navigate(['home']);
+    }
   }
 
   @HostListener('document:click',['$event.target'])
