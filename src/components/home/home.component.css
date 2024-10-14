@@ -40,3 +40,8 @@ app-event:hover {
   align-items: center;
 }
 
+h1 {
+  position: relative;
+  left: 12%;
+  margin: 20px 0;
+}

@@ -1,4 +1,5 @@
 <app-header (newItemEvent)="getSearchString($event)"/>
+<h1>{{typeOfEvents}}</h1>
 @if(hs.events.length == 1 && hs.events[0].name === 'Default event') {
   <app-loading />
 } @else {

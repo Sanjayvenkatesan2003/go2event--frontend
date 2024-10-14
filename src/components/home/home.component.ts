@@ -27,15 +27,18 @@ export class HomeComponent {
   };
   allEvents:Event[] = [];
   searchQuery:string = '';
+  typeOfEvents:string = '';
   
-  constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,private router:Router) {
+  constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,public router:Router) {
     this.user = userService.getUserInSession();
 
     if(this.router.url === '/home') {
+      this.typeOfEvents = 'All Events';
       setTimeout(() => {
         this.hs.getAllEvents();
       },700);
     } else if(this.router.url === '/home/events') {
+      this.typeOfEvents = 'Booked Events';
       setTimeout(() => {
         this.hs.getEventsOfUser();
       },500);
