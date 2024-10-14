@@ -31,15 +31,29 @@ export class HomeComponent {
   
   constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,public router:Router) {
     this.user = userService.getUserInSession();
-
+    this.hs.events = [{
+      name: 'Default event',
+      description: 'Default description',
+      type: 'Default type',
+      venue: 'Default venue',
+      ticketPrice:0,
+      totalSeats:0,
+      availableSeats:0,
+      date: new Date(),
+      time: new Date(),
+      duration: new Date(),
+    }];
+    
     if(this.router.url === '/home') {
-      this.typeOfEvents = 'All Events';
+      
       setTimeout(() => {
+        this.typeOfEvents = 'All Events';
         this.hs.getAllEvents();
       },700);
     } else if(this.router.url === '/home/events') {
-      this.typeOfEvents = 'Booked Events';
+      
       setTimeout(() => {
+        this.typeOfEvents = 'Booked Events';
         this.hs.getEventsOfUser();
       },500);
     }
