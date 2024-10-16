@@ -17,7 +17,7 @@ import { HomeService } from '../home/home.service';
 export class EventComponent {
 
   constructor(private eventService: EventService,private userService: UserService,
-    private notificationService: NotificationService) {  
+    private notificationService: NotificationService, private homeService:HomeService) {  
     this.user = this.userService.getUserInSession();
   }
   user:User;
@@ -49,6 +49,9 @@ export class EventComponent {
       this.event.availableSeats -= 1;
       this.buttonText = 'Cancel';
       this.notificationService.launchNotification('success',this.event.name+' event booked successfully');
+      setTimeout(()=>{
+        this.homeService.getAllEvents();
+      },200);
     }); 
   }
 
@@ -67,6 +70,9 @@ export class EventComponent {
       this.event.availableSeats += 1;
       this.buttonText = 'Book';
       this.notificationService.launchNotification('success',this.event.name+' event cancelled successfully');
+      setTimeout(()=>{
+        this.homeService.getEventsOfUser();
+      },200);
     }); 
   }
  }

@@ -18,8 +18,8 @@ export class EventService {
     return this.httpClient.get<Event[]>(this.apiUrl+'/all');
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.apiUrl+'/2/getUsers');
+  getAllUsers(eventId:number): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.apiUrl+'/'+eventId+'/getUsers');
   }
   
   bookAnEvent(event: Event): Observable<User> {
