@@ -10,7 +10,7 @@ img:hover {
 }
 
 .container {
-  position: absolute;
+  position: fixed;
   min-height: 50px;
   width: 400px;
   top: 30px;

@@ -1,5 +1,3 @@
 <!-- The routed views render in the <router-outlet> -->
 <router-outlet></router-outlet>
-@if(ns.notificationType !== '') {
-  <app-notification [msg]="ns.notificationMsg" [type]="ns.notificationType" [ran]="ns.notificationNum" />
-}
+<app-notification [msg]="ns.notificationMsg" [type]="ns.notificationType" [ran]="ns.notificationNum" />

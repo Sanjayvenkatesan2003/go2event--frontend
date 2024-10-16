@@ -15,9 +15,16 @@ export class NotificationComponent {
 
   @Input('ran') randomNumber: number = 0;
   
-  transformStyle: string = 'transform: translateY(0%);';
-  bgColor: string = 'background-color: black;';
-  timerId:any = 0;
+  transformStyle: string;
+  bgColor: string;
+  timerId:any;
+
+  constructor() {
+    this.transformStyle = 'transform: translateY(-200%);';
+    this.bgColor = 'background-color: black;';
+    this.timerId  = 0;
+  }
+  
   
   ngOnChanges(changes: SimpleChanges): void {
     clearTimeout(this.timerId);
