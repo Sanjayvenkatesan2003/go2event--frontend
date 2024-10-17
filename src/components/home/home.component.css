@@ -42,6 +42,7 @@ app-event:hover {
 
 h1 {
   position: relative;
-  left: 12%;
+  left: 2%;
   margin: 20px 0;
+  width: fit-content;
 }
