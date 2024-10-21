@@ -6,6 +6,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
 import { NotificationService } from '../notification/notification.service';
 import { HomeService } from '../home/home.service';
+import { TicketService } from '../ticket/ticket.service';
 
 @Component({
   selector: 'app-event',
@@ -16,16 +17,17 @@ import { HomeService } from '../home/home.service';
 })
 export class EventComponent {
 
-  constructor(private eventService: EventService,private userService: UserService,
-    private notificationService: NotificationService, private homeService:HomeService) {  
-    this.user = this.userService.getUserInSession();
-  }
+ 
   user:User;
   buttonText:string = 'Book';
 
+  constructor(private eventService: EventService,private userService: UserService,
+    private ticketService: TicketService, private homeService:HomeService) {  
+    this.user = this.userService.getUserInSession();
+  }
 
   ngOnInit() {
-    this.buttonText = this.isBooked()?'Cancel' : 'Book';
+    this.buttonText = this.isBooked()?'View Ticket' : 'Book';
   }
   
 
@@ -43,37 +45,23 @@ export class EventComponent {
   };
 
   book():void {
-    this.eventService.bookAnEvent(this.event).subscribe(updatedUser => {
-      this.userService.storeUserInSession(updatedUser);
-      this.user = this.userService.getUserInSession();
-      this.event.availableSeats -= 1;
-      this.buttonText = 'Cancel';
-      this.notificationService.launchNotification('success',this.event.name+' event booked successfully');
-      setTimeout(()=>{
-        this.homeService.getAllEvents();
-      },200);
-    }); 
+    this.ticketService.bookAnEvent(this.userService.getUserInSession(),this.event);
+    setTimeout(()=>{
+      this.homeService.getAllEvents();
+    },200);
+  }
+
+  showTicket():void {
+    this.ticketService.displayTicket(this.userService.getUserInSession(),this.event);
   }
 
   isBooked(): boolean {
-    for(let i=0;i<this.user.events.length;i++) {
-      if(this.user.events[i].name === this.event.name)
+    for(let i=0;i<this.user.tickets.length;i++) {
+      if(this.user.tickets[i].event!.name === this.event.name)
         return true;
     }
     return false;
   }
 
-  cancel():void {
-    this.eventService.cancelAnEvent(this.event).subscribe(updatedUser => {
-      this.userService.storeUserInSession(updatedUser);
-      this.user = this.userService.getUserInSession();
-      this.event.availableSeats += 1;
-      this.buttonText = 'Book';
-      this.notificationService.launchNotification('success',this.event.name+' event cancelled successfully');
-      setTimeout(()=>{
-        this.homeService.getEventsOfUser();
-      },200);
-    }); 
-  }
  }
 

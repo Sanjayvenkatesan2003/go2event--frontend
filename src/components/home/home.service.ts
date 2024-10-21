@@ -10,6 +10,7 @@ export class HomeService {
 
   constructor(private userService: UserService,private eventService: EventService) { }
 
+  allEvents:Event[] = [];
   events:Event[] = [{
     name: 'Default event',
     description: 'Default description',
@@ -47,7 +48,9 @@ export class HomeService {
       duration: new Date(),
     }];
 
-    this.events = this.formatEvents(this.userService.getUserInSession().events);
+    this.allEvents = this.formatEvents(this.userService.getAllEvents(this.userService.getUserInSession()));
+    this.events = this.allEvents;
+
   }
 
   getAllEvents():void {
@@ -55,14 +58,15 @@ export class HomeService {
       events = this.formatEvents(events);
       events = events.filter((event) => !this.isBooked(event));
       this.events = events;
+      this.allEvents = this.events;
     });
 
   }
 
   isBooked(event:Event):boolean {
     let user = this.userService.getUserInSession();
-    for(let i=0;i<user.events.length;i++) {
-      if(user.events[i].name === event.name)
+    for(let i=0;i<user.tickets.length;i++) {
+      if(user.tickets[i].event!.name === event.name)
         return true;
     }
     return false;

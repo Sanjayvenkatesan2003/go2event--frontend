@@ -43,7 +43,7 @@
 </div>
 <div class="book">
   @if(isBooked()){
-    <button (click)="cancel()">{{buttonText}}</button>
+    <button (click)="showTicket()">{{buttonText}}</button>
   } @else {
     <button (click)="book()">{{buttonText}}</button>
   }

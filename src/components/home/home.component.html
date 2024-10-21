@@ -1,18 +1,23 @@
 <app-header (newItemEvent)="getSearchString($event)"/>
-<h1>{{typeOfEvents}}</h1>
 @if(hs.events.length == 1 && hs.events[0].name === 'Default event') {
   <app-loading />
 } @else {
+  <h1>{{typeOfEvents}}</h1>
   @if(hs.events.length == 0) {
     <div class="no-event">
       <h2>Unfortunately there are no events available.</h2>
       <img src="/no_events.png" alt="No events available"/>
     </div>
   } @else {
-  <div class="events-display">
-      @for (event of hs.events; track event.id) {
-        <app-event [event]="event"/>
-      } 
-  </div>
+    <div class="events-display">
+        @for (event of hs.events; track event.id) {
+          <app-event [event]="event"/>
+        } 
+    </div>
+    @if(ticketService.showBookedTicket || ticketService.showBookingTicket || ticketService.showMessage) {
+      <div class="my-modal">
+        <app-ticket />
+      </div>
+    }
   }
 }

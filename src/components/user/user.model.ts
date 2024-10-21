@@ -1,9 +1,9 @@
-import { Event } from "../event/event.model";
+import { Ticket } from "../ticket/ticket.model";
 
 export interface User {
   id?:number;
   name:string;
   email:string;
   password:string;
-  events:Event[];
+  tickets:Ticket[];
 }

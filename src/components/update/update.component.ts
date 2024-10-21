@@ -21,8 +21,8 @@ export class UpdateComponent {
   }
 
   oldPassword: string = '';
-  newUser:User = {name:"", email:"", password:"",events:[]};
-  oldUser:User = {name:"", email:"", password:"",events:[]};
+  newUser:User = {name:"", email:"", password:"",tickets:[]};
+  oldUser:User = {name:"", email:"", password:"",tickets:[]};
   visibility:boolean = false;
   visibility1:boolean = false;
   updateMode:boolean = false;

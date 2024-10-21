@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Event } from './event.model';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
+import { TicketService } from '../ticket/ticket.service';
+import { Ticket } from '../ticket/ticket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,21 +14,10 @@ export class EventService {
 
   private apiUrl:string = 'http://localhost:8080/events';
 
-  constructor(private httpClient: HttpClient,private userService: UserService) {}
+  constructor(private httpClient: HttpClient,private userService: UserService,private ticketService: TicketService) {}
 
   getAllEvents(): Observable<Event[]> {
     return this.httpClient.get<Event[]>(this.apiUrl+'/all');
   }
-
-  getAllUsers(eventId:number): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.apiUrl+'/'+eventId+'/getUsers');
-  }
   
-  bookAnEvent(event: Event): Observable<User> {
-    return this.userService.bookAnEvent(this.userService.getUserInSession(),event);
-  }
-
-  cancelAnEvent(event: Event): Observable<User> {
-    return this.userService.cancelAnEvent(this.userService.getUserInSession(),event)
-  }
 }

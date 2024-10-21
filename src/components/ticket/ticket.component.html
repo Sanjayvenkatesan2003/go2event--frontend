@@ -1,0 +1,40 @@
+@if(ticketService.showBookingTicket) {
+  <div class="booking-page">
+    
+  </div>
+} @else {
+  @if(ticketService.showBookedTicket) {
+    <div class="booked-ticket">
+        <div class="event-title">
+          {{ticketService.bookedTicket.event!.name}}
+        </div>
+        <div class="ticket-reference">
+          <p>Ticket Reference</p>
+          <img src={{ticketService.qrApi}} alt="QrCode" title="" />
+        </div>
+        <div class="booking-sentence">
+          Booking done on {{ticketService.bookedTicket.purchaseDate | date:'MMM d,y'}}
+          at {{ticketService.bookedTicket.purchaseTime | date:'h:mm a'}}
+        </div>
+        
+        <div class="bottom">
+          <div class="number-of-seats">
+            Number of Seats: {{ticketService.bookedTicket.numberOfSeats}}
+          </div>
+          <div class="amount-paid">
+            Amount paid: ₹ {{ticketService.bookedTicket.amountPaid}}
+          </div>
+        </div>
+        <div class="buttons">
+          <div class="close-button" (click)="closeTicket()">
+            Close Ticket
+          </div>
+          <div class="cancel-button" (click)="cancelTicket()">
+            Cancel
+          </div>
+        </div>
+    </div>
+  } @else {
+    
+  }
+}

@@ -8,11 +8,13 @@ import { Event } from '../event/event.model';
 import { LoadingComponent } from "../loading/loading.component";
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
+import { TicketComponent } from '../ticket/ticket.component';
+import { TicketService } from '../ticket/ticket.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, EventComponent, LoadingComponent],
+  imports: [HeaderComponent, EventComponent, LoadingComponent, TicketComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -23,13 +25,12 @@ export class HomeComponent {
     name: 'Default Name',
     email: 'default@example.com',
     password: 'default password',
-    events:[]
+    tickets:[]
   };
-  allEvents:Event[] = [];
   searchQuery:string = '';
   typeOfEvents:string = '';
   
-  constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,public router:Router) {
+  constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,public router:Router,public ticketService:TicketService) {
     this.user = userService.getUserInSession();
     this.hs.events = [{
       name: 'Default event',
@@ -45,19 +46,18 @@ export class HomeComponent {
     }];
     
     if(this.router.url === '/home') {
-      
       setTimeout(() => {
         this.typeOfEvents = 'All Events';
         this.hs.getAllEvents();
       },700);
     } else if(this.router.url === '/home/events') {
-      
       setTimeout(() => {
         this.typeOfEvents = 'Booked Events';
         this.hs.getEventsOfUser();
       },500);
     }
   }
+
 
   logOut() {
     this.userService.logout();
@@ -89,8 +89,11 @@ export class HomeComponent {
         },500);
       }
     } else {
+      console.log('All Events');
+      console.log(this.hs.allEvents);
+      
       setTimeout(() => {
-        this.hs.events = this.allEvents.filter(event => event.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
+        this.hs.events = this.hs.allEvents.filter(event => event.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
       },200)
     }
   }

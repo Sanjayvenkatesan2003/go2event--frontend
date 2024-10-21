@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import { Component } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './user.model';
+import { Ticket } from '../ticket/ticket.model';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notification/notification.service';
 
@@ -20,7 +21,7 @@ export class UserComponent {
   currentForm: string = "login-form";
   visibility: boolean = false;
   visibility1: boolean = false;
-  newUser:User = {name:"", email:"", password:"",events:[]};
+  newUser:User = {name:"", email:"", password:"",tickets:[]};
   confirmPassword: string = "";
 
   createUser():void {
@@ -30,7 +31,7 @@ export class UserComponent {
       } else if(this.newUser.password === this.confirmPassword) {
         this.userService.createUser(this.newUser).subscribe((createdUser) => {
           this.userService.storeUserInSession(createdUser);
-          this.newUser = {name:"", email:"", password:"",events:[]};
+          this.newUser = {name:"", email:"", password:"",tickets:[]};
           this.confirmPassword = "";
           this.router.navigate(['/home/'+createdUser.id]);
         });
@@ -40,13 +41,14 @@ export class UserComponent {
     });
   }
 
-  existingUser: User = {name:"", email:"", password:"",events:[]};
+  existingUser: User = {name:"", email:"", password:"",tickets:[]};
   
   login():void {
     this.userService.getUserByEmail(this.existingUser).subscribe((receivedUser) => {
       if(!receivedUser) {
         this.notificationService.launchNotification('error','User not found!!');
       } else if(receivedUser.password === this.existingUser.password) {
+        this.formatTicketsOfUser(receivedUser.tickets);
         this.userService.storeUserInSession(receivedUser);
         this.router.navigate(['/home']);
       } else {
@@ -61,10 +63,10 @@ export class UserComponent {
   
   toggleForms(otherForm: string) {
     if(this.currentForm === 'signup') {
-      this.newUser = {name:"", email:"", password:"",events:[]};
+      this.newUser = {name:"", email:"", password:"",tickets:[]};
       this.confirmPassword = "";
     } else {
-      this.existingUser = {name:"", email:"", password:"",events:[]};
+      this.existingUser = {name:"", email:"", password:"",tickets:[]};
     }
     this.currentForm = otherForm;
   }
@@ -79,5 +81,13 @@ export class UserComponent {
 
   togglePasswordVisibility1() {
     this.visibility1 = !this.visibility1;
+  }
+
+  formatTicketsOfUser(tickets:Ticket[]):void {
+    tickets.map((ticket:Ticket) => {
+      let dateString:string = ticket.purchaseDate+"T"+ticket.purchaseTime;
+      ticket.purchaseDate = new Date(dateString);
+      ticket.purchaseTime = new Date(dateString);
+    });
   }
 }

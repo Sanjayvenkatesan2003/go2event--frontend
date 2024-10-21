@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './user.model';
 import { Event } from '../event/event.model';
+import { Ticket } from '../ticket/ticket.model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 export class UserService {
 
   private apiUrl: string = 'http://localhost:8080/users';
+  private events:Event[] = [];
 
   constructor(private httpClient: HttpClient,private router: Router) { }
 
@@ -36,6 +38,7 @@ export class UserService {
 
   storeUserInSession(user: User): void {
     let {password, ...userWithoutPassword} = user;
+    this.formatUser(user);
     sessionStorage.setItem('user',JSON.stringify(userWithoutPassword));
   }
 
@@ -49,17 +52,10 @@ export class UserService {
       name: 'Default Name',
       email: 'default@example.com',
       password: 'default password',
-      events:[]
+      tickets:[]
     }));
   }
 
-  bookAnEvent(user:User,event:Event):Observable<User> {
-    return this.httpClient.put<User>(this.apiUrl+'/'+user.id+'/addEvent'+'/'+event.id,{});
-  }
-
-  cancelAnEvent(user:User,event:Event):Observable<User> {
-    return this.httpClient.put<User>(this.apiUrl+'/'+user.id+'/cancelEvent'+'/'+event.id,{});
-  }
 
   logout():void {
     this.removeUserInSession();
@@ -72,7 +68,36 @@ export class UserService {
         name: updatingUser.name,
         email: updatingUser.email,
         password: updatingUser.password,
-        events: updatingUser.events
+        tickets: updatingUser.tickets
     });
+    
+  }
+
+  getAllEvents(user:User):Event[] {
+      for(let i=0;i < user.tickets.length;i++) {
+        this.events[i] = user.tickets[i].event!;
+      }
+      return this.events;
+  }
+
+  getTicketFromEvent(user:User,event:Event):Ticket {
+    for(let i=0;i < user.tickets.length;i++) {
+      if(user.tickets[i].event!.name === event.name) {
+        return user.tickets[i];
+      }
+    }
+    return {
+      amountPaid: 0,
+      purchaseDate: new Date("1970-01-01T00:00:00"),
+      purchaseTime: new Date("1970-01-01T00:00:00"),
+      numberOfSeats: 0
+    };
+  }
+
+  formatUser(user: User) {
+    for(let i = 0; i < user.tickets.length; i++) {
+      user.tickets[i].purchaseDate = new Date(user.tickets[i].purchaseDate);
+      user.tickets[i].purchaseTime = new Date("1970-01-01T"+user.tickets[i].purchaseTime);
+    }
   }
 }
