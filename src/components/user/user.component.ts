@@ -33,7 +33,8 @@ export class UserComponent {
           this.userService.storeUserInSession(createdUser);
           this.newUser = {name:"", email:"", password:"",tickets:[]};
           this.confirmPassword = "";
-          this.router.navigate(['/home/'+createdUser.id]);
+          this.notificationService.launchNotification('success','User registered successfully');
+          this.currentForm='login-form';
         });
       } else {
         this.notificationService.launchNotification('error','Passwords must be matched at both feilds');
@@ -48,7 +49,7 @@ export class UserComponent {
       if(!receivedUser) {
         this.notificationService.launchNotification('error','User not found!!');
       } else if(receivedUser.password === this.existingUser.password) {
-        this.formatTicketsOfUser(receivedUser.tickets);
+        this.userService.formatTicketsOfUser(receivedUser.tickets);
         this.userService.storeUserInSession(receivedUser);
         this.router.navigate(['/home']);
       } else {
@@ -83,11 +84,5 @@ export class UserComponent {
     this.visibility1 = !this.visibility1;
   }
 
-  formatTicketsOfUser(tickets:Ticket[]):void {
-    tickets.map((ticket:Ticket) => {
-      let dateString:string = ticket.purchaseDate+"T"+ticket.purchaseTime;
-      ticket.purchaseDate = new Date(dateString);
-      ticket.purchaseTime = new Date(dateString);
-    });
-  }
+  
 }

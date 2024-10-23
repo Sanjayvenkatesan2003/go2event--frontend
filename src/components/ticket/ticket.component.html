@@ -1,6 +1,28 @@
 @if(ticketService.showBookingTicket) {
   <div class="booking-page">
-    
+    <div class="event-title">
+      {{ticketService.event.name}}
+    </div>
+    <div class="numberOfSeatsInput">
+      <span>Number of seats</span>
+      <div class="inputGroup">
+        <button (click)="decrementSeats()">&minus;</button>
+        <input type="text" [(ngModel)]="numberOfSeats">
+        <button (click)="incrementSeats()">&plus;</button>
+      </div>
+    </div>
+    <div class="amount">
+      <span>Amount to be paid</span>
+      <span class="money">₹ {{amount}}</span>
+    </div>
+    <div class="buttons">
+      <div class="close-button" (click)="closeTicket()">
+        Close Booking
+      </div>
+      <div class="proceed-button" (click)="bookTicket()">
+        Proceed
+      </div>
+    </div>
   </div>
 } @else {
   @if(ticketService.showBookedTicket) {
@@ -9,8 +31,17 @@
           {{ticketService.bookedTicket.event!.name}}
         </div>
         <div class="ticket-reference">
-          <p>Ticket Reference</p>
-          <img src={{ticketService.qrApi}} alt="QrCode" title="" />
+          <div>
+            <p>Venue: {{ticketService.bookedTicket.event!.venue}}</p>
+            <p>Time: {{ticketService.bookedTicket.event!.time | date:'h:mm a'}}</p>
+          </div>
+          @if(ticketService.qrCode === 'no-qr') {
+            <div class="spinner-border" role="status" style="animation-duration: 1.5s;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          } @else {
+            <img src={{ticketService.qrCode}} alt="QrCode" title="" />
+          }
         </div>
         <div class="booking-sentence">
           Booking done on {{ticketService.bookedTicket.purchaseDate | date:'MMM d,y'}}

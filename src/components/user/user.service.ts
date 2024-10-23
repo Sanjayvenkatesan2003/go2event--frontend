@@ -38,7 +38,6 @@ export class UserService {
 
   storeUserInSession(user: User): void {
     let {password, ...userWithoutPassword} = user;
-    this.formatUser(user);
     sessionStorage.setItem('user',JSON.stringify(userWithoutPassword));
   }
 
@@ -74,9 +73,14 @@ export class UserService {
   }
 
   getAllEvents(user:User):Event[] {
+      
       for(let i=0;i < user.tickets.length;i++) {
         this.events[i] = user.tickets[i].event!;
+        this.events[i].date = new Date(this.events[i].date);
+        this.events[i].time = new Date(this.events[i].time);
+        this.events[i].duration = new Date(this.events[i].duration);
       }
+      
       return this.events;
   }
 
@@ -94,10 +98,13 @@ export class UserService {
     };
   }
 
-  formatUser(user: User) {
-    for(let i = 0; i < user.tickets.length; i++) {
-      user.tickets[i].purchaseDate = new Date(user.tickets[i].purchaseDate);
-      user.tickets[i].purchaseTime = new Date("1970-01-01T"+user.tickets[i].purchaseTime);
+  formatTicketsOfUser(tickets:Ticket[]):void {
+    for(let i = 0; i < tickets.length; i++) {
+      tickets[i].purchaseDate = new Date(tickets[i].purchaseDate);
+      tickets[i].purchaseTime = new Date("1970-01-01T"+tickets[i].purchaseTime);
+      tickets[i].event!.date = new Date(tickets[i].event!.date);
+      tickets[i].event!.time = new Date("1970-01-01T"+tickets[i].event!.time);
+      tickets[i].event!.duration = new Date("1970-01-01T"+tickets[i].event!.duration);
     }
   }
 }

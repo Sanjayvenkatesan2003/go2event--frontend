@@ -28,6 +28,7 @@ export class HomeService {
     receivedEvents.forEach(element => {
       let dateString:string = element.date+"T"+element.time;
       element.date = new Date(dateString);
+      element.time = new Date(dateString);
       dateString = "1970-01-01T"+element.duration;
       element.duration = new Date(dateString);
     });
@@ -48,9 +49,9 @@ export class HomeService {
       duration: new Date(),
     }];
 
-    this.allEvents = this.formatEvents(this.userService.getAllEvents(this.userService.getUserInSession()));
+    this.allEvents = this.userService.getAllEvents(this.userService.getUserInSession());
     this.events = this.allEvents;
-
+    console.log(this.events);
   }
 
   getAllEvents():void {

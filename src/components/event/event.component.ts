@@ -46,9 +46,6 @@ export class EventComponent {
 
   book():void {
     this.ticketService.bookAnEvent(this.userService.getUserInSession(),this.event);
-    setTimeout(()=>{
-      this.homeService.getAllEvents();
-    },200);
   }
 
   showTicket():void {
