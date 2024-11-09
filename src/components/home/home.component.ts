@@ -10,11 +10,13 @@ import { HomeService } from './home.service';
 import { Router } from '@angular/router';
 import { TicketComponent } from '../ticket/ticket.component';
 import { TicketService } from '../ticket/ticket.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, EventComponent, LoadingComponent, TicketComponent],
+  imports: [HeaderComponent, EventComponent, LoadingComponent, TicketComponent, CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -29,6 +31,8 @@ export class HomeComponent {
   };
   searchQuery:string = '';
   typeOfEvents:string = '';
+  upcoming:boolean = true;
+  attended:boolean = false;
   
   constructor(private userService:UserService,private eventService:EventService,public hs:HomeService,public router:Router,public ticketService:TicketService) {
     this.user = userService.getUserInSession();
@@ -49,15 +53,34 @@ export class HomeComponent {
       setTimeout(() => {
         this.typeOfEvents = 'All Events';
         this.hs.getAllEvents();
-      },700);
+      },500);
     } else if(this.router.url === '/home/events') {
       setTimeout(() => {
-        this.typeOfEvents = 'Booked Events';
-        this.hs.getEventsOfUser();
+        this.typeOfEvents = 'My Events';
+        if(this.upcoming) {
+          this.hs.getUpcomingEventsOfUser();
+        } else {
+          this.hs.getAttendedEventsOfUser();
+        }
       },500);
     }
   }
 
+  toggleUpcomingOrAttended(target:string) {
+    if(target === 'upcoming') {
+      this.upcoming = true;
+      this.attended = false;
+      this.hs.getUpcomingEventsOfUser();
+    } else {
+      this.upcoming = false;
+      this.attended = true;
+      this.hs.getAttendedEventsOfUser();
+    }
+  }
+
+  displayCreateEvent():void {
+    this.router.navigate(['create-event']);
+  }
 
   logOut() {
     this.userService.logout();
@@ -85,7 +108,11 @@ export class HomeComponent {
         },500);
       } else {
         setTimeout(() => {
-          this.hs.getEventsOfUser();
+          if(this.upcoming) {
+            this.hs.getUpcomingEventsOfUser();
+          } else {
+            this.hs.getAttendedEventsOfUser();
+          }
         },500);
       }
     } else {

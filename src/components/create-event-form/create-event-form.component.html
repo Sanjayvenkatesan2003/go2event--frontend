@@ -1,0 +1,61 @@
+<h1>Create a new event</h1>
+<img src="create-event-form.png" alt="image-file">
+<form>
+  <div class="row-feild">
+    <div class="text-input-feild">
+      <label for="event-name">Name</label>
+      <input type="text" id="event-name" name="event-name" required [(ngModel)]="newEvent.name">
+    </div>
+    <div class="text-input-feild">
+      <label for="event-type">Type or Category</label>
+      <input type="text" id="event-type" name="event-type" required [(ngModel)]="newEvent.type">
+    </div>
+  </div>
+  <div class="row-feild">
+    <div class="text-input-feild">
+      <label for="event-description">Description</label>
+      <input type="text" id="event-description" name="event-description" required [(ngModel)]="newEvent.description">
+    </div>
+  </div>
+  <div class="row-feild">
+    <div class="text-input-feild">
+      <label for="event-venue">Venue</label>
+      <input type="text" id="event-venue" name="event-venue" required [(ngModel)]="newEvent.venue">
+    </div>
+    <div class="time-input-feild">
+      <label for="event-duration">Duration</label>
+      <input type="time" id="event-duration" name="event-duration" required [(ngModel)]="newEvent.duration">
+    </div>
+  </div>
+  <div class="row-feild">
+    <div class="number-input-feild">
+      <label for="event-total-seats">Total Seats</label>
+      <input type="number" id="event-total-seats" name="event-total-seats" required [(ngModel)]="newEvent.totalSeats">
+    </div>
+    <div class="number-input-feild">
+      <label for="event-available-seats">Available Seats</label>
+      <input type="number" id="event-available-seats" name="event-available-seats" required [(ngModel)]="newEvent.availableSeats">
+    </div>
+  </div>
+  <div class="row-feild">
+    <div class="time-input-feild">
+      <label for="event-time">Time (in 24 hours)</label>
+      <input type="time" id="event-time" name="event-time" required [(ngModel)]="newEvent.time">
+    </div>
+    <div class="date-input-feild">
+      <label for="event-date">Date</label>
+      <input type="date" id="event-date" name="event-date" required [(ngModel)]="newEvent.date">
+    </div>
+  </div>
+  <div class="row-feild">
+    <div class="number-input-feild ticket-price">
+      <label for="event-ticket-price">Ticket Price</label>
+      <span>₹</span>
+      <input type="number" id="event-ticket-price" name="event-ticket-price" required [(ngModel)]="newEvent.ticketPrice">
+    </div>
+  </div>
+  <div class="button-row">
+    <button (click)="leaveForm()" class="cancel-button">Cancel</button>
+    <button (click)="createEvent()" class="proceed-button">Create</button>
+  </div>
+</form>

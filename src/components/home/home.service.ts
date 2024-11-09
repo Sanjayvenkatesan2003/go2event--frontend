@@ -35,7 +35,7 @@ export class HomeService {
     return receivedEvents;
   }
 
-  getEventsOfUser():void {
+  getUpcomingEventsOfUser():void {
     this.events = [{
       name: 'Default event',
       description: 'Default description',
@@ -49,15 +49,42 @@ export class HomeService {
       duration: new Date(),
     }];
 
+    let today = new Date();
     this.allEvents = this.userService.getAllEvents(this.userService.getUserInSession());
-    this.events = this.allEvents;
-    console.log(this.events);
+    this.events = this.allEvents.filter((event) => this.isBooked(event) && event.date >= today);
   }
 
+  getAttendedEventsOfUser():void {
+    this.events = [{
+      name: 'Default event',
+      description: 'Default description',
+      type: 'Default type',
+      venue: 'Default venue',
+      ticketPrice:0,
+      totalSeats:0,
+      availableSeats:0,
+      date: new Date(),
+      time: new Date(),
+      duration: new Date(),
+    }];
+
+    let today = new Date();
+    this.allEvents = this.userService.getAllEvents(this.userService.getUserInSession());
+    this.events = this.allEvents.filter((event) => this.isBooked(event) && event.date < today); 
+  };
+
   getAllEvents():void {
+    let today = new Date();
     this.eventService.getAllEvents().subscribe(events => {
       events = this.formatEvents(events);
-      events = events.filter((event) => !this.isBooked(event));
+      events = events.filter((event) => !this.isBooked(event) && event.date >= today);
+      events.sort((event1, event2) => {
+        if(event1.date >= event2.date) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
       this.events = events;
       this.allEvents = this.events;
     });

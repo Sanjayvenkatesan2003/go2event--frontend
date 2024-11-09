@@ -17,7 +17,7 @@ export class ProfileComponent {
 
   constructor(private userService: UserService,private elementRef: ElementRef,private router: Router,private homeService:HomeService) {
     if(this.router.url === '/home') {
-      this.typeOfEvents = 'Booked Events';
+      this.typeOfEvents = 'My Events';
     } else {
       this.typeOfEvents = 'All Events';
     }
@@ -36,7 +36,7 @@ export class ProfileComponent {
       this.typeOfEvents = 'All Events';
       this.router.navigate(['home/events']);
     } else {
-      this.typeOfEvents = 'Booked Events';
+      this.typeOfEvents = 'My Events';
       this.router.navigate(['home']);
     }
   }

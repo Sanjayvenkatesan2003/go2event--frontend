@@ -7,7 +7,7 @@ export interface Event {
   ticketPrice:number;
   totalSeats:number;
   availableSeats:number;
-  date:Date;
-  time:Date;
-  duration:Date;
+  date:any;
+  time:any;
+  duration:any;
 }

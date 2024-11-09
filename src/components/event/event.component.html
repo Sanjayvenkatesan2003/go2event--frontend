@@ -37,13 +37,21 @@
       Total seats: {{event.totalSeats}}
     </div>
     <div class="availableSeats">
-      Available seats: {{event.availableSeats}}
+      @if(event.date < today) {
+        Attended: {{event.totalSeats - event.availableSeats}}
+      } @else {
+        Available seats: {{event.availableSeats}}
+      }
     </div>
   </div>
 </div>
 <div class="book">
   @if(isBooked()){
-    <button (click)="showTicket()">{{buttonText}}</button>
+    @if(event.date < today) {
+      
+    } @else {
+      <button (click)="showTicket()">{{buttonText}}</button>
+    }
   } @else {
     <button (click)="book()">{{buttonText}}</button>
   }

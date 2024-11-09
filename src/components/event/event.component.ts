@@ -20,6 +20,7 @@ export class EventComponent {
  
   user:User;
   buttonText:string = 'Book';
+  today:Date = new Date();
 
   constructor(private eventService: EventService,private userService: UserService,
     private ticketService: TicketService, private homeService:HomeService) {  
@@ -27,6 +28,7 @@ export class EventComponent {
   }
 
   ngOnInit() {
+    this.today = new Date();
     this.buttonText = this.isBooked()?'View Ticket' : 'Book';
   }
   

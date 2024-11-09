@@ -76,9 +76,9 @@ export class TicketService {
       this.userService.storeUserInSession(receivedUser);
       this.notificationService.launchNotification('success',this.event.name+' Event Booked Successfully');
       this.showBookingTicket = false;
-      // setTimeout(() => {
-      //   window.location.reload();
-      // },1000);
+      setTimeout(() => {
+        window.location.reload();
+      },1000);
     }, (err:HttpErrorResponse) => {
       this.notificationService.launchNotification('error',err.error);
     });
@@ -96,6 +96,7 @@ export class TicketService {
 
   cancelATicket(): void {
     this.httpClient.delete<User>(this.apiUrl+'/'+this.bookedTicket.id!).subscribe(receivedUser => {
+      this.userService.formatTicketsOfUser(receivedUser.tickets);
       this.userService.storeUserInSession(receivedUser);
       this.showBookedTicket = false;
       this.notificationService.launchNotification('success','Ticket cancelled successfully');

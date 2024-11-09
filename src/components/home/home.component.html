@@ -2,7 +2,33 @@
 @if(hs.events.length == 1 && hs.events[0].name === 'Default event') {
   <app-loading />
 } @else {
-  <h1>{{typeOfEvents}}</h1>
+  @if(typeOfEvents === 'My Events') {
+    <div class="my-events-title">
+      <div class="my-events-title-left">
+        <h1>{{typeOfEvents}}</h1>
+        <div class="upcomingOrAttended">
+          @if(upcoming) {
+            <span (click)="toggleUpcomingOrAttended('upcoming')" [style]="'color:white;background-color:blue'">Upcoming</span>
+          } @else {
+            <span (click)="toggleUpcomingOrAttended('upcoming')">Upcoming</span>
+          }
+          
+          @if(attended) {
+            <span (click)="toggleUpcomingOrAttended('attended')" [style]="'color:white;background-color:blue'">Attended</span>
+          } @else {
+            <span (click)="toggleUpcomingOrAttended('attended')">Attended</span>
+          }  
+        </div>
+      </div>
+      <div class="my-events-title-right">
+        <div class="createEventButton">
+          <button (click)="displayCreateEvent()">Create new Event</button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <h1>{{typeOfEvents}}</h1>
+  }
   @if(hs.events.length == 0) {
     <div class="no-event">
       <h2>Unfortunately there are no events available.</h2>

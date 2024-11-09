@@ -1,0 +1,124 @@
+h1 {
+  margin-left:20px;
+  margin-top: 20px;
+  font-family: Poppins,cursive;
+  font-weight: 500;
+  font-size:50px;
+  text-shadow: 0px 0px 5px red;
+}
+img {
+  position: absolute;
+  right:50px;
+  top: 50px;
+  width: 40%;
+}
+form {
+  padding-top: 50px;
+  margin-left: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+  background-color: white;
+  width: 55%;
+  height: 500px;
+}
+
+.row-feild {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  margin:20px 30px;
+}
+
+label {
+  font-size: 18px;
+}
+.text-input-feild,.date-input-feild,.time-input-feild,.number-input-feild {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  margin-right: 30px;
+  padding: 5px;
+  width: 200px;
+}
+input:focus {
+  outline: none;
+}
+
+
+#event-description {
+  width: 75.2%;
+}
+
+.ticket-price {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.ticket-price label {
+  margin-right: 50px;
+}
+
+.ticket-price span {
+  font-size:18px;
+}
+
+.ticket-price input {
+  margin-left: 5px;
+}
+
+.cancel-button {
+  color:red;
+}
+
+.close-button {
+  color:rgb(0, 128, 255);
+}
+
+.proceed-button {
+  color:rgb(30, 190, 30);
+}
+
+.cancel-button,.close-button,.proceed-button {
+  background-color:white;
+  border: none;
+  width:fit-content;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color:red;
+}
+
+.close-button:hover {
+  background-color: rgb(0, 128, 255);
+}
+
+.proceed-button:hover {
+  background-color:rgb(30, 190, 30);
+}
+
+.cancel-button:hover,.close-button:hover,.proceed-button:hover {
+  color:white;
+  cursor: pointer;
+}
+
+.button-row {
+  margin: 0 60px 0 20px;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+}

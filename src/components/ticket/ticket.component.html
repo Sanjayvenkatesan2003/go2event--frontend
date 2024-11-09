@@ -12,8 +12,12 @@
       </div>
     </div>
     <div class="amount">
-      <span>Amount to be paid</span>
-      <span class="money">₹ {{amount}}</span>
+      @if(amount == 0) {
+        <span class="money">Free Entry</span>
+      } @else {
+        <span>Amount to be paid</span>
+        <span class="money">₹ {{amount}}</span>
+      }  
     </div>
     <div class="buttons">
       <div class="close-button" (click)="closeTicket()">
@@ -53,7 +57,11 @@
             Number of Seats: {{ticketService.bookedTicket.numberOfSeats}}
           </div>
           <div class="amount-paid">
-            Amount paid: ₹ {{ticketService.bookedTicket.amountPaid}}
+            @if(ticketService.bookedTicket.amountPaid == 0) {
+              Free Entry
+            } @else {
+              Amount paid: ₹ {{ticketService.bookedTicket.amountPaid}} 
+            }
           </div>
         </div>
         <div class="buttons">

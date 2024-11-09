@@ -42,9 +42,7 @@ app-event:hover {
 }
 
 h1 {
-  position: relative;
-  left: 2%;
-  margin: 20px 0;
+  margin: 20px 0px 20px 20px;
   width: fit-content;
 }
 
@@ -68,4 +66,44 @@ app-ticket {
   height: 100%;
   overflow: auto;
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.my-events-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.my-events-title-left {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.upcomingOrAttended {
+  margin: 20px;
+}
+
+.upcomingOrAttended span {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.upcomingOrAttended span:hover {
+  cursor: pointer;
+}
+
+.createEventButton button {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  color:white;
+  background-color: rgb(27, 201, 27);
+  border:none;
+  margin-right: 50px;
 }
