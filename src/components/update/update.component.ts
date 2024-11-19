@@ -55,6 +55,7 @@ export class UpdateComponent {
     this.userService.updateUser(this.oldUser).subscribe((updatedUser) => {
       if(updatedUser) {
         this.notificationService.launchNotification('success','User updated successfully');
+        this.userService.formatTicketsOfUser(updatedUser.tickets);
         this.userService.storeUserInSession(updatedUser);
       } else {
         this.notificationService.launchNotification('error','Server error, Please try again later');

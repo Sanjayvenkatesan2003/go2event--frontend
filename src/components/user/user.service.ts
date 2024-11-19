@@ -67,7 +67,7 @@ export class UserService {
         name: updatingUser.name,
         email: updatingUser.email,
         password: updatingUser.password,
-        tickets: updatingUser.tickets
+        tickets: []
     });
     
   }
